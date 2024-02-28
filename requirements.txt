@@ -1,0 +1,13 @@
+einops
+numpy
+opencv-python
+Pillow
+PyYAML
+scikit-learn
+scikit-image
+scipy
+tabulate
+tensorboardX
+easydict
+torch==1.12.1
+torchvision==0.13.1

@@ -1,0 +1,103 @@
+version: v1.0.0
+random_seed: 2
+port: 123123
+eval_mode: False
+reproduce: True
+generate_feature: True
+
+dataset:
+  type: custom
+
+  image_reader:
+    type: opencv
+    kwargs:
+      image_dir: ../data/MVTec-AD/mvtec_anomaly_detection/
+      color_mode: RGB
+
+  train:
+    meta_file: ../data/MVTec-AD/train.json
+    rebalance: False
+    hflip: False
+    vflip: False
+    rotate: False
+
+  test:
+    meta_file: ../data/MVTec-AD/test.json
+
+  input_size: [224,224] # [h,w]
+  pixel_mean: [0.485, 0.456, 0.406]
+  pixel_std: [0.229, 0.224, 0.225]
+  batch_size: 16
+  workers: 4 # number of workers of dataloader for each process
+
+criterion:
+  - name: FeatureMSELoss
+    type: FeatureMSELoss
+    kwargs:
+      weight: 1.0
+
+trainer:
+  max_epoch: 100
+  clip_max_norm: 0.1
+  val_freq_epoch: 10
+  print_freq_step: 1
+  vis_freq: 10
+  tb_freq_step: 1
+  grid_lr: 0.1
+  net_lr: 0.001
+  lr_scheduler:
+    type: StepLR
+    kwargs:
+      step_size: 40
+      gamma: 0.1
+
+saver:
+  exp_path: exp/GRAD/
+  auto_resume: False
+  always_save: False
+  load_path: checkpoints/ckpt_best.pth.tar
+  save_dir: checkpoints/
+  log_dir: log/
+  feat_dir: best_feature/
+
+evaluator:
+  save_dir: result_eval_temp
+  key_metric: mean_max_auc
+  metrics:
+    auc:
+      - name: max
+        kwargs:
+          avgpool_size: [32, 32]
+      - name: pixel
+  vis_compound:
+    save_dir: vis_compound
+    max_score: null
+    min_score: null
+
+frozen_layers: [backbone]
+
+net:
+    - name: backbone
+      type: models.backbones.efficientnet_b4
+      frozen: True
+      kwargs:
+        pretrained: True
+        outlayers: [3,4]
+    - name: neck
+      prev: backbone
+      type: models.necks.MFCN
+      kwargs:
+        outstrides: [8]
+    
+    - name: reconstruction
+      prev: neck
+      type: models.reconstructions.GRAD
+      kwargs:
+        local_resol: 8
+        global_resol: 4
+        block: BasicBlock
+        layers: [7]
+        mse_lamb: 0.3
+        cos_lamb: 0.7
+        mse_coef: 0.05
+        noise_std: 0.05
