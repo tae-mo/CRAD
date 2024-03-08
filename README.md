@@ -57,8 +57,8 @@ Our model achieves the following performance on [MVTec AD](https://www.mvtec.com
 
 ## BibTeX
 ```
-@article{lee2024grad,
-title={Grid-Based Continuous Normal Representation for Anomaly Detection},
+@article{lee2024crad,
+title={Continuous Memory Representation for Anomaly Detection},
 author={Lee, Joo Chan and Kim, Taejune and Park, Eunbyung and Woo, Simon S. and Ko, Jong Hwan},
 journal={arXiv preprint arXiv:2402.18293},
 year={2024}
