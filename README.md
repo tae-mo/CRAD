@@ -1,4 +1,4 @@
-# Continuous Memory Representation for Anomaly Detection
+# Continuous Memory Representation for Anomaly Detection (ECCV 2024)
 ### Joo Chan Lee*, Taejune Kim*, Eunbyung Park, Simon S. Woo, Jong Hwan Ko
 ### [[Project Page](https://tae-mo.github.io/crad/)] [[Paper(arxiv)](https://arxiv.org/abs/2402.18293/)]
 This repository is the official implementation of **Continuous Memory Representation for Anomaly Detection**. 
