@@ -12,7 +12,7 @@ from models.initializer import initialize_from_cfg
 logger = logging.getLogger("global_logger")
 
 __all__ = [
-    "GRAD"
+    "CRAD"
 ]
 
 def conv3x3(inplanes, outplanes, stride=1, groups=1, dilation=1):
@@ -83,7 +83,7 @@ class BasicBlock(nn.Module):
         return out
     
 
-class GRAD(nn.Module):
+class CRAD(nn.Module):
     def __init__(
         self,
         block,
@@ -95,7 +95,7 @@ class GRAD(nn.Module):
         initializer=None,
         **kwargs
     ):
-        super(GRAD, self).__init__()
+        super(CRAD, self).__init__()
         block = globals()[block]
         
         ch = kwargs['inplanes'][0]

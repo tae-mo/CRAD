@@ -52,7 +52,7 @@ trainer:
       gamma: 0.1
 
 saver:
-  exp_path: exp/GRAD/
+  exp_path: exp/CRAD/
   auto_resume: False
   always_save: False
   load_path: checkpoints/ckpt_best.pth.tar
@@ -91,7 +91,7 @@ net:
     
     - name: reconstruction
       prev: neck
-      type: models.reconstructions.GRAD
+      type: models.reconstructions.CRAD
       kwargs:
         local_resol: 8
         global_resol: 4
