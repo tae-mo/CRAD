@@ -137,8 +137,10 @@ class CustomDataset(BaseDataset):
 
         # read / generate mask
         if meta.get("maskname", None):
+            maskname = meta['maskname']
             mask = self.image_reader(meta["maskname"], is_mask=True)
         else:
+            maskname = None
             if label == 0:  # good
                 mask = np.zeros((image.height, image.width)).astype(np.uint8)
             elif label == 1:  # defective
@@ -156,5 +158,5 @@ class CustomDataset(BaseDataset):
         mask = transforms.ToTensor()(mask)
         if self.normalize_fn:
             image = self.normalize_fn(image)
-        input.update({"image": image, "mask": mask})
+        input.update({"image": image, "mask": mask, "maskname": str(maskname)})
         return input

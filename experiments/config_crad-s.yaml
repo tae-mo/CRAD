@@ -95,7 +95,7 @@ net:
       kwargs:
         local_resol: 8
         global_resol: 4
-        ch_exp: 864
+        ch_exp: 216
         layers: 11
         mse_lamb: 0.3
         cos_lamb: 0.7
