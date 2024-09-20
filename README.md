@@ -37,7 +37,7 @@ To train the model(s) in the paper, run this command:
 ```train
 cd experiments/
 bash train.sh config.yaml 4 0,1,2,3 1111
-# bash train.sh <config> <num gpus> <gpu ids> <master port>
+# bash train_torch.sh <config> <num gpus> <gpu ids> <master port>
 ```
 
 ## Evaluation
@@ -45,7 +45,7 @@ To evaluate a trained model, run:
 ```eval
 cd experiments/
 bash eval.sh config.yaml 4 0,1,2,3 1111
-# bash eval.sh <config> <num gpus> <gpu ids> <master port>
+# bash eval_torch.sh <config> <num gpus> <gpu ids> <master port>
 ```
 
 ## Results
